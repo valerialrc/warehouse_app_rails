@@ -3,11 +3,11 @@
 <h2> Galpões </h2>
 
 <% @warehouses.each do |w| %>
-  <%= w.name %>
-  Código: <%= w.code%>
-  Cidade: <%= w.city%>
-  <%= w.area%> m2
+  <%= link_to(w.name, warehouse_path(w.id)) %>
+  Código: <%= w.code %>
+  Cidade: <%= w.city %>
+  <%= w.area %> m2
 <% end %>
-<% if @warehouses.empty? %>%
+<% if @warehouses.empty? %>
   <p>Não existem galpões cadastrados</p>
 <% end %>
