@@ -9,5 +9,7 @@ Rails.application.routes.draw do
   # root "posts#index"
 
   root to: 'home#index'
-  resources :warehouses, only: [:show]
+  resources :warehouses, only: [:show, :new, :create, :edit, :update, :destroy]
+  resources :suppliers, only: [:index, :show, :new, :create, :edit, :update]
+  resources :product_models, only: [:index]
 end
