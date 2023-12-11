@@ -1,10 +1,25 @@
 require 'rails_helper'
 
 describe 'Usuário vê modelo de produtos' do
-  it 'a partir do menu' do
+  it 'se tiver autenticado' do
     # Arrange
 
     # Act
+    visit root_path
+    within('nav') do
+      click_on 'Modelos de Produtos'
+    end 
+
+    # Assert
+    expect(current_path).to eq new_user_session_path
+  end
+
+  it 'a partir do menu' do
+    # Arrange
+    user = User.create!(email: 'joao@email.com', password: 'password')
+
+    # Act
+    login_as(user)
     visit root_path
     within('nav') do
       click_on 'Modelos de Produtos'
@@ -27,8 +42,11 @@ describe 'Usuário vê modelo de produtos' do
 
     ProductModel.create!(name: 'SoundBar 7.1', weight: 3000, width: 60,
                          height: 15, depth: 60, sku: 'SOUND-SAMSUNG', supplier: supplier)
+    
+    user = User.create!(email: 'joao@email.com', password: 'password')
 
     # Act
+    login_as(user)
     visit root_path
     within('nav') do
       click_on 'Modelos de Produtos'
@@ -46,7 +64,10 @@ describe 'Usuário vê modelo de produtos' do
   it 'e não existem produtos cadastrados' do
     # Arrange
 
+    user = User.create!(email: 'joao@email.com', password: 'password')
+
     # Act
+    login_as(user)
     visit root_path
     within('nav') do
       click_on 'Modelos de Produtos'
